@@ -1,0 +1,30 @@
+on:
+  schedule:
+    - cron: "0 0,4,8,12,16,20 * * *"
+
+name: Update associates data
+
+jobs:
+  run:
+    runs-on: macOS-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup R
+        uses: r-lib/actions/setup-r@master
+        
+      - name: Setup dependencies
+        run: |
+          R -e 'install.packages("renv")' 
+          R -e 'renv::restore()'
+
+      - name: Update associates data
+        env: 
+          repo_token: ${{ secrets.GITHUB_TOKEN }} 
+        run:
+          R -e 'renv::run("R/update_associates.R")'
+      - name: Commit results
+        run: |
+          git add data/associates.csv
+          git commit -m 'Update historical associates data'
+          git push origin
+        
