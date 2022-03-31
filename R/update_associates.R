@@ -1,7 +1,7 @@
 
 url <- "https://www.sociofortaleza.com.br/"
 html <- rvest::read_html(x = url)
-datetime <- format(Sys.time(), "%Y-%m-%d %H:%M:%S")
+datetime <- format(as.POSIXct(Sys.time(), tz = "Ameriza/Brazil"), "%Y-%m-%d %H:%M:%S")
 
 associates_text <- html |> 
   rvest::html_node("strong") |> 
