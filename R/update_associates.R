@@ -9,7 +9,7 @@ associates_text <- html |>
 
 associates_number <- as.integer(sub(pattern = "\\.", replacement = "", x = associates_text))
 
-associates_new <- data.frame("data" = datetime, "associates" = associates_number)
+associates_new <- data.frame("date" = datetime, "associates" = associates_number)
 associates_old <- read.csv2(file = here::here("data/associates.csv"))
 associates <- rbind(associates_old, associates_new)
 
