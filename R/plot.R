@@ -53,18 +53,18 @@ p1 <- ggplot(associates) +
   geom_point(data = dplyr::summarise(associates, date = max(date), associates = max(associates)), aes(x = date, y = associates), color = blue, size = 3) + 
   geom_text(data = dplyr::summarise(associates, date = max(date), associates = max(associates)), aes(x = date, y = associates, label = associates), color = blue, size = 15, vjust = -1, family = f1) + 
   
-  geom_segment(data = events_associates, aes(x = date_end, y = associates, xend = date_end, yend = position_max), color = blue, linetype = 3, size = 0.5, alpha = 0.4) +
+  geom_segment(data = events_associates, aes(x = date_end, y = associates, xend = date_end, yend = position_max + 5000), color = blue, linetype = 3, size = 0.5, alpha = 0.4) +
   geom_richtext(
-    data = events_associates, aes(x = date_end, y = position_max, label = description),
+    data = events_associates, aes(x = date_end, y = position_max + 5000, label = description),
     color = blue, size = 11, family = f1, vjust = -0.5, fill = NA, lineheight = 0,
     label.color = NA, label.padding = grid::unit(rep(0, 4), "pt")
   ) +
   
-  scale_x_datetime(name = "data", date_labels = "%b/%y", limits = c(min(associates$date), max(events_associates$date_end) + 1e3)) +
-  scale_y_continuous(breaks = seq(min(associates$associates), position_max, 5000), limits = c(min(associates$associates) - 250, position_max + 3000)) + 
+  scale_x_datetime(name = "data", date_labels = "%b/%y", limits = c(min(associates$date), max(associates$date) + 1e3)) +
+  scale_y_continuous(breaks = seq(min(associates$associates), position_max, 5000), limits = c(min(associates$associates) - 250, position_max + 7000)) + 
   labs(
     title = "<span style='color:#e2211c'>Sócios torcedores do Fortaleza Esporte Clube</span>", 
-    subtitle = "<i>Evolução da quantidade de sócios desde 23/11/21</i>",
+    subtitle = "<i>Evolução da quantidade de sócios de 23/11/21 a 09/04/22</i>",
     caption = "Fonte: www.sociofortaleza.com.br · Gráfico: Matheus S. Rodrigues"
   ) +
   
